@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="./analysis.css">
+
+</head>
+<body>
+    <div class="dashboard-container">
+        <div class="dashboard-wrapper">
+            <div class="dashboard-grid">  
+
+
+                <!-- Card 1: Total Sales -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Total Sales</h3>
+                        <div class="info-icon">i</div>
+                    </div>
+                    
+                    <div class="card-value">¥ 126,560</div>
+                    
+                    <div class="trend-container">
+                        <div class="trend-item">
+                            <span class="trend-label">Week Ratio</span>
+                            <span class="trend-value">12%</span>
+                            <span class="trend-arrow trend-up arrow-up"></span>
+                        </div>
+                        <div class="trend-item">
+                            <span class="trend-label">Day Ratio</span>
+                            <span class="trend-value">11%</span>
+                            <span class="trend-arrow trend-down arrow-down"></span>
+                        </div>
+                    </div>
+                    
+                    <div class="divider"></div>
+                    
+                    <div class="card-footer">
+                        Day Sales <span class="value">¥ 12,423</span>
+                    </div>
+                </div>
+
+
+
+                <!-- Card 2: Visits -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Visits</h3>
+                        <div class="info-icon">i</div>
+                    </div>
+                    
+                    <div class="card-value">8,848</div>
+                    
+                    <div class="chart-container">
+                        <svg class="area-chart" viewBox="0 0 280 48">
+                            <defs>
+                                <linearGradient id="purpleGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                                    <stop offset="0%" stop-color="#c4b5fd" stop-opacity="0.8" />
+                                    <stop offset="100%" stop-color="#c4b5fd" stop-opacity="0.1" />
+                                </linearGradient>
+                            </defs>
+                            <path
+                                d="M0,40 Q20,35 40,38 T80,32 T120,28 T160,35 T200,30 T240,25 T280,22 L280,48 L0,48 Z"
+                                fill="url(#purpleGradient)"
+                                stroke="#c4b5fd"
+                                stroke-width="2"
+                            />
+                        </svg>
+                    </div>
+                    
+                    <div class="divider"></div>
+                    
+                    <div class="card-footer">
+                        Day Visits <span class="value">1,234</span>
+                    </div>
+                </div>
+
+
+
+                <!-- Card 3: Payments -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Payments</h3>
+                        <div class="info-icon">i</div>
+                    </div>
+                    
+                    <div class="card-value">6,560</div>
+                    
+                    <div class="chart-container">
+                        <div class="bar-chart">
+                            <div class="bar" style="height: 16px;"></div>
+                            <div class="bar" style="height: 24px;"></div>
+                            <div class="bar" style="height: 12px;"></div>
+                            <div class="bar" style="height: 28px;"></div>
+                            <div class="bar" style="height: 20px;"></div>
+                            <div class="bar" style="height: 32px;"></div>
+                            <div class="bar" style="height: 36px;"></div>
+                            <div class="bar" style="height: 30px;"></div>
+                            <div class="bar" style="height: 40px;"></div>
+                            <div class="bar" style="height: 34px;"></div>
+                            <div class="bar" style="height: 44px;"></div>
+                            <div class="bar" style="height: 38px;"></div>
+                            <div class="bar" style="height: 48px;"></div>
+                            <div class="bar" style="height: 42px;"></div>
+                            <div class="bar" style="height: 46px;"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="divider"></div>
+                    
+                    <div class="card-footer">
+                        Conversion Rate <span class="value">60%</span>
+                    </div>
+                </div>
+
+
+
+                <!-- Card 4: Operational Effect -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Operational Effect</h3>
+                        <div class="header-icons">
+                            <div class="info-icon">i</div>
+                            
+                        </div>
+                    </div>
+                    
+                    <div class="card-value">78%</div>
+                    
+                    <div class="progress-container">
+                        <div class="progress-bar">
+                            <div class="progress-fill">
+                                <div class="progress-dot"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="divider"></div>
+                    
+                    <div class="trend-container">
+                        <div class="trend-item">
+                            <span class="trend-label">Week Ratio</span>
+                            <span class="trend-value">12%</span>
+                            <span class="trend-arrow trend-up arrow-up"></span>
+                        </div>
+                        <div class="trend-item">
+                            <span class="trend-label">Day Ratio</span>
+                            <span class="trend-value">11%</span>
+                            <span class="trend-arrow trend-down arrow-down"></span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+
+            <!-- Comprehensive analytics dashboard-->
+            <div class="new-dashboard-grid">
+                <!-- Online Top Search -->
+                <div class="dashboard-card">
+                    <h2 class="dashboard-card-title">Online Top Search</h2>
+                    
+
+                    <!-- Metrics -->
+                    <div class="metrics-grid">
+                        <div class="metric">
+                            <div class="metric-label">Search Users</div>
+                            <div class="metric-content">
+                                <div class="metric-info">
+                                    <div class="metric-value">12,321</div>
+                                    <div class="metric-change positive">
+                                        <svg class="trend-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <polyline points="22,7 13.5,15.5 8.5,10.5 2,17"></polyline>
+                                            <polyline points="16,7 22,7 22,13"></polyline>
+                                        </svg>
+                                        <span>17.1%</span>
+                                    </div>
+                                </div>
+                                <div class="metric-chart">
+                                    <svg class="mini-chart" width="80" height="32" viewBox="0 0 80 30">
+                                        <polyline class="chart-line" points="0,20 11,15 23,18 34,12 46,8 57,14 69,10 80,6"></polyline>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="metric">
+                            <div class="metric-label">Per Capita Search</div>
+                            <div class="metric-content">
+                                <div class="metric-info">
+                                    <div class="metric-value">2.7</div>
+                                    <div class="metric-change negative">
+                                        <svg class="trend-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <polyline points="22,17 13.5,8.5 8.5,13.5 2,7"></polyline>
+                                            <polyline points="16,17 22,17 22,11"></polyline>
+                                        </svg>
+                                        <span>26.2%</span>
+                                    </div>
+                                </div>
+                                <div class="metric-chart">
+                                    <svg class="mini-chart" width="80" height="32" viewBox="0 0 80 30">
+                                        <polyline class="chart-line" points="0,10 11,18 23,14 34,22 46,20 57,16 69,24 80,12"></polyline>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- Table -->
+                    <div class="table-container">
+                        <table class="search-table">
+                            <thead>
+                                <tr>
+                                    <th>Rank</th>
+                                    <th>Keyword</th>
+                                    <th>Users</th>
+                                    <th>Weekly Range</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="rank-cell">1</td>
+                                    <td>search-keyword-0</td>
+                                    <td>9</td>
+                                    <td>
+                                        <div class="trend-cell down">
+                                            <span>64%</span>
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <polyline points="22,17 13.5,8.5 8.5,13.5 2,7"></polyline>
+                                                <polyline points="16,17 22,17 22,11"></polyline>
+                                            </svg>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="rank-cell">2</td>
+                                    <td>search-keyword-1</td>
+                                    <td>268</td>
+                                    <td>
+                                        <div class="trend-cell up">
+                                            <span>99%</span>
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <polyline points="22,7 13.5,15.5 8.5,10.5 2,17"></polyline>
+                                                <polyline points="16,7 22,7 22,13"></polyline>
+                                            </svg>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="rank-cell">3</td>
+                                    <td>search-keyword-2</td>
+                                    <td>526</td>
+                                    <td>
+                                        <div class="trend-cell up">
+                                            <span>63%</span>
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <polyline points="22,7 13.5,15.5 8.5,10.5 2,17"></polyline>
+                                                <polyline points="16,7 22,7 22,13"></polyline>
+                                            </svg>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="rank-cell">4</td>
+                                    <td>search-keyword-3</td>
+                                    <td>21</td>
+                                    <td>
+                                        <div class="trend-cell down">
+                                            <span>76%</span>
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <polyline points="22,17 13.5,8.5 8.5,13.5 2,7"></polyline>
+                                                <polyline points="16,17 22,17 22,11"></polyline>
+                                            </svg>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="rank-cell">5</td>
+                                    <td>search-keyword-4</td>
+                                    <td>83</td>
+                                    <td>
+                                        <div class="trend-cell up">
+                                            <span>27%</span>
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <polyline points="22,7 13.5,15.5 8.5,10.5 2,17"></polyline>
+                                                <polyline points="16,7 22,7 22,13"></polyline>
+                                            </svg>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+
+                    <!-- Pagination -->
+                    <div class="pagination-container">
+                        <div class="pagination-info">
+                            <span>1 - 5 of 10</span>
+                        </div>
+                        <div class="pagination-controls">
+                            <button class="pagination-btn">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="15,18 9,12 15,6"></polyline>
+                                </svg>
+                            </button>
+                            <button class="pagination-btn active">1</button>
+                            <button class="pagination-btn">2</button>
+                            <button class="pagination-btn">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="9,18 15,12 9,6"></polyline>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Sales Proportion Chart -->
+                <div class="dashboard-card">
+                    <div class="dashboard-card-header">
+                        <h2 class="dashboard-card-title">The Proportion Of Sales</h2>
+                        
+                        <!-- Tabs -->
+                        <div class="tabs">
+                            <button class="tab-btn active">ALL</button>
+                            <button class="tab-btn">Online</button>
+                            <button class="tab-btn">Stores</button>
+                        </div>
+                    </div>
+
+                    <div class="chart-content">
+                        <!-- Donut Chart -->
+                        <div class="chart-section">
+                            <div class="donut-chart-container">
+                                <svg class="donut-chart" width="200" height="200">
+                                    <!-- Background circle -->
+                                    <circle cx="100" cy="100" r="85" fill="none" stroke="#f3f4f6" stroke-width="30"/>
+                                    
+                                    <!-- Home Appliances: 21.24% -->
+                                    <circle cx="100" cy="100" r="85" fill="none" stroke="#3b82f6" stroke-width="30" 
+                                            stroke-dasharray="113.4 534.1" stroke-dashoffset="0" stroke-linecap="round" 
+                                            transform="rotate(-90 100 100)"/>
+                                    
+                                    <!-- Beverages: 27.94% -->
+                                    <circle cx="100" cy="100" r="85" fill="none" stroke="#10b981" stroke-width="30" 
+                                            stroke-dasharray="149.2 534.1" stroke-dashoffset="-113.4" stroke-linecap="round" 
+                                            transform="rotate(-90 100 100)"/>
+                                    
+                                    <!-- Personal Health: 27.07% -->
+                                    <circle cx="100" cy="100" r="85" fill="none" stroke="#8b5cf6" stroke-width="30" 
+                                            stroke-dasharray="144.6 534.1" stroke-dashoffset="-262.6" stroke-linecap="round" 
+                                            transform="rotate(-90 100 100)"/>
+                                    
+                                    <!-- Accessories & Bags: 3.57% -->
+                                    <circle cx="100" cy="100" r="85" fill="none" stroke="#f59e0b" stroke-width="30" 
+                                            stroke-dasharray="19.1 534.1" stroke-dashoffset="-407.2" stroke-linecap="round" 
+                                            transform="rotate(-90 100 100)"/>
+                                    
+                                    <!-- Mother & Baby Products: 10.53% -->
+                                    <circle cx="100" cy="100" r="85" fill="none" stroke="#ef4444" stroke-width="30" 
+                                            stroke-dasharray="56.2 534.1" stroke-dashoffset="-426.3" stroke-linecap="round" 
+                                            transform="rotate(-90 100 100)"/>
+                                    
+                                    <!-- Others: 9.66% -->
+                                    <circle cx="100" cy="100" r="85" fill="none" stroke="#06b6d4" stroke-width="30" 
+                                            stroke-dasharray="51.6 534.1" stroke-dashoffset="-482.5" stroke-linecap="round" 
+                                            transform="rotate(-90 100 100)"/>
+                                </svg>
+                                <div class="chart-center">
+                                    <div class="chart-total">1149</div>
+                                    <div class="chart-label">Total</div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- Legend -->
+                        <div class="legend-section">
+                            <h3 class="legend-title">Sales</h3>
+                            <div class="legend">
+                                <div class="legend-item">
+                                    <div class="legend-category">
+                                        <div class="legend-color" style="background-color: #3b82f6;"></div>
+                                        <span class="legend-name">Home Appliances</span>
+                                    </div>
+                                    <div class="legend-values">
+                                        <span class="legend-percentage">21.24%</span>
+                                        <span class="legend-value">¥244.00</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="legend-item">
+                                    <div class="legend-category">
+                                        <div class="legend-color" style="background-color: #10b981;"></div>
+                                        <span class="legend-name">Beverages</span>
+                                    </div>
+                                    <div class="legend-values">
+                                        <span class="legend-percentage">27.94%</span>
+                                        <span class="legend-value">¥321.00</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="legend-item">
+                                    <div class="legend-category">
+                                        <div class="legend-color" style="background-color: #8b5cf6;"></div>
+                                        <span class="legend-name">Personal Health</span>
+                                    </div>
+                                    <div class="legend-values">
+                                        <span class="legend-percentage">27.07%</span>
+                                        <span class="legend-value">¥311.00</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="legend-item">
+                                    <div class="legend-category">
+                                        <div class="legend-color" style="background-color: #f59e0b;"></div>
+                                        <span class="legend-name">Accessories & Bags</span>
+                                    </div>
+                                    <div class="legend-values">
+                                        <span class="legend-percentage">3.57%</span>
+                                        <span class="legend-value">¥41.00</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="legend-item">
+                                    <div class="legend-category">
+                                        <div class="legend-color" style="background-color: #ef4444;"></div>
+                                        <span class="legend-name">Mother & Baby Products</span>
+                                    </div>
+                                    <div class="legend-values">
+                                        <span class="legend-percentage">10.53%</span>
+                                        <span class="legend-value">¥121.00</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="legend-item">
+                                    <div class="legend-category">
+                                        <div class="legend-color" style="background-color: #06b6d4;"></div>
+                                        <span class="legend-name">Others</span>
+                                    </div>
+                                    <div class="legend-values">
+                                        <span class="legend-percentage">9.66%</span>
+                                        <span class="legend-value">¥111.00</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
