@@ -1,0 +1,1165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Workplace</title>
+    <meta name="description" content="Modern admin dashboard workplace with project management, team collaboration, and analytics.">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+            line-height: 1.6;
+        }
+
+        /* Dashboard Layout */
+        .dashboard {
+            display: flex;
+            height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 256px;
+            background-color: white;
+            border-right: 1px solid #e2e8f0;
+            transition: width 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar.collapsed {
+            width: 64px;
+        }
+
+        .sidebar-header {
+            padding: 1rem;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo {
+            width: 32px;
+            height: 32px;
+            background-color: #3b82f6;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .logo-text {
+            font-weight: 600;
+            color: #1e293b;
+            transition: opacity 0.3s ease;
+        }
+
+        .sidebar.collapsed .logo-text {
+            opacity: 0;
+            width: 0;
+            overflow: hidden;
+        }
+
+        .sidebar-nav {
+            flex: 1;
+            padding: 1rem;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.5rem 0.75rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-bottom: 0.25rem;
+            font-size: 14px;
+            border: none;
+            background: none;
+            width: 100%;
+            text-align: left;
+        }
+
+        .nav-item:hover {
+            background-color: #f1f5f9;
+            color: #1e293b;
+        }
+
+        .nav-item.active {
+            background-color: #3b82f6;
+            color: white;
+        }
+
+        .nav-icon {
+            width: 16px;
+            height: 16px;
+            flex-shrink: 0;
+        }
+
+        .nav-text {
+            transition: opacity 0.3s ease;
+        }
+
+        .sidebar.collapsed .nav-text {
+            opacity: 0;
+            width: 0;
+            overflow: hidden;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* Top Navigation */
+        .top-nav {
+            background-color: white;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .menu-toggle {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 4px;
+            color: #64748b;
+        }
+
+        .menu-toggle:hover {
+            color: #1e293b;
+            background-color: #f1f5f9;
+        }
+
+        .breadcrumb {
+            font-size: 14px;
+            color: #64748b;
+        }
+
+        .breadcrumb .active {
+            color: #1e293b;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .search-container {
+            position: relative;
+        }
+
+        .search-input {
+            padding: 0.5rem 0.75rem 0.5rem 2.5rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            width: 256px;
+            background-color: #f8fafc;
+            font-size: 14px;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 16px;
+            height: 16px;
+            color: #64748b;
+        }
+
+        .notification-btn {
+            position: relative;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 4px;
+            color: #64748b;
+        }
+
+        .notification-btn:hover {
+            color: #1e293b;
+            background-color: #f1f5f9;
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: -2px;
+            right: -2px;
+            width: 12px;
+            height: 12px;
+            background-color: #ef4444;
+            border-radius: 50%;
+            font-size: 8px;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .user-avatar {
+            width: 32px;
+            height: 32px;
+            background-color: #3b82f6;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 12px;
+        }
+
+        /* Page Content */
+        .page-content {
+            flex: 1;
+            overflow-auto;
+            padding: 1.5rem;
+        }
+
+        .content-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Header Section */
+        .page-header {
+            margin-bottom: 2rem;
+        }
+
+        .page-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 0.5rem;
+        }
+
+        .page-subtitle {
+            color: #64748b;
+        }
+
+        /* Cards */
+        .card {
+            background-color: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .card-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: #1e293b;
+        }
+
+        /* Stats Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .stat-card {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .stat-info h3 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #1e293b;
+        }
+
+        .stat-info p {
+            font-size: 0.875rem;
+            color: #64748b;
+        }
+
+        .stat-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 8px;
+            background-color: #f1f5f9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .stat-icon.blue { color: #3b82f6; }
+        .stat-icon.green { color: #10b981; }
+        .stat-icon.yellow { color: #f59e0b; }
+
+        /* Main Grid Layout */
+        .main-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .left-column {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .right-column {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        /* Projects Grid */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .project-card {
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 1rem;
+            cursor: pointer;
+            transition: box-shadow 0.2s ease;
+        }
+
+        .project-card:hover {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .project-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 12px;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .project-info h4 {
+            font-weight: 500;
+            color: #1e293b;
+            margin-bottom: 0.25rem;
+        }
+
+        .project-info p {
+            font-size: 0.875rem;
+            color: #64748b;
+            line-height: 1.4;
+        }
+
+        /* Quick Actions */
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1rem;
+        }
+
+        .action-btn {
+            height: 80px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.875rem;
+            color: #64748b;
+        }
+
+        .action-btn:hover {
+            border-color: #3b82f6;
+            color: #3b82f6;
+        }
+
+        .action-btn.add {
+            border-style: dashed;
+        }
+
+        /* Activity Feed */
+        .activity-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .activity-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 10px;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .activity-content {
+            flex: 1;
+        }
+
+        .activity-content p {
+            font-size: 0.875rem;
+            color: #1e293b;
+            margin-bottom: 0.25rem;
+        }
+
+        .activity-content .username {
+            font-weight: 500;
+        }
+
+        .activity-content .action {
+            color: #3b82f6;
+        }
+
+        .activity-time {
+            font-size: 0.75rem;
+            color: #64748b;
+        }
+
+        /* Teams */
+        .team-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.5rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .team-item:hover {
+            background-color: #f1f5f9;
+        }
+
+        .team-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 10px;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .team-name {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: #1e293b;
+        }
+
+        /* Chart Container */
+        .chart-container {
+            height: 320px;
+            position: relative;
+        }
+
+        .chart-legend {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            color: #64748b;
+        }
+
+        .legend-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                width: 64px;
+            }
+            
+            .sidebar .logo-text,
+            .sidebar .nav-text {
+                display: none;
+            }
+
+            .search-input {
+                width: 200px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                position: absolute;
+                z-index: 1000;
+                height: 100%;
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+            }
+            
+            .sidebar.open {
+                transform: translateX(0);
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .quick-actions {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .nav-right {
+                gap: 0.5rem;
+            }
+
+            .search-input {
+                width: 150px;
+            }
+        }
+
+        /* Color Classes */
+        .bg-blue-500 { background-color: #3b82f6; }
+        .bg-red-500 { background-color: #ef4444; }
+        .bg-blue-600 { background-color: #2563eb; }
+        .bg-gray-800 { background-color: #1f2937; }
+        .bg-purple-600 { background-color: #9333ea; }
+        .bg-cyan-500 { background-color: #06b6d4; }
+
+        /* Button Styles */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            border: none;
+        }
+
+        .btn-ghost {
+            background: none;
+            color: #3b82f6;
+        }
+
+        .btn-ghost:hover {
+            background-color: #eff6ff;
+            color: #2563eb;
+        }
+
+        /* Icons */
+        .icon {
+            width: 16px;
+            height: 16px;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        /* Utility Classes */
+        .flex { display: flex; }
+        .items-center { align-items: center; }
+        .justify-between { justify-content: space-between; }
+        .space-y-4 > * + * { margin-top: 1rem; }
+        .space-y-6 > * + * { margin-top: 1.5rem; }
+        .mb-4 { margin-bottom: 1rem; }
+        .mb-6 { margin-bottom: 1.5rem; }
+        .text-sm { font-size: 0.875rem; }
+        .font-semibold { font-weight: 600; }
+        .text-center { text-align: center; }
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Sidebar -->
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">A</div>
+                <span class="logo-text">Ant Design Pro</span>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <button class="nav-item">
+                    <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                    </svg>
+                    <span class="nav-text">首页</span>
+                </button>
+                
+                <button class="nav-item">
+                    <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                    </svg>
+                    <span class="nav-text">Dashboard</span>
+                </button>
+                
+                <button class="nav-item active">
+                    <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 1v4"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 1v4"></path>
+                    </svg>
+                    <span class="nav-text">工作台</span>
+                </button>
+                
+                <button class="nav-item">
+                    <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
+                    </svg>
+                    <span class="nav-text">用户管理</span>
+                </button>
+                
+                <button class="nav-item">
+                    <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+                    </svg>
+                    <span class="nav-text">消息中心</span>
+                </button>
+            </nav>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Top Navigation -->
+            <header class="top-nav">
+                <div class="nav-left">
+                    <button class="menu-toggle" onclick="toggleSidebar()">
+                        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                    
+                    <nav class="breadcrumb">
+                        <span>首页</span>
+                        <span> / </span>
+                        <span>Dashboard</span>
+                        <span> / </span>
+                        <span class="active">工作台</span>
+                    </nav>
+                </div>
+
+                <div class="nav-right">
+                    <div class="search-container">
+                        <svg class="search-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
+                        <input type="text" class="search-input" placeholder="Search...">
+                    </div>
+
+                    <button class="notification-btn">
+                        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-5 5v-5zM10.07 2.82a3 3 0 00-4.24 0l-1.41 1.41a3 3 0 000 4.24l8.49 8.49a3 3 0 004.24 0l1.41-1.41a3 3 0 000-4.24L10.07 2.82z"></path>
+                        </svg>
+                        <span class="notification-badge">3</span>
+                    </button>
+
+                    <span class="text-sm">RTL</span>
+
+                    <div class="user-info">
+                        <div class="user-avatar">A</div>
+                        <span class="text-sm">Admin</span>
+                    </div>
+
+                    <button class="notification-btn">
+                        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                        </svg>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Page Content -->
+            <main class="page-content">
+                <div class="content-container">
+                    <!-- Header Section -->
+                    <div class="page-header">
+                        <h1 class="page-title">Good morning, Sanji, I want to eat meat!</h1>
+                        <p class="page-subtitle">Start your productive day with an organized workspace</p>
+                    </div>
+
+                    <!-- Statistics Cards -->
+                    <div class="stats-grid">
+                        <div class="card">
+                            <div class="stat-card">
+                                <div class="stat-info">
+                                    <p>Number of Projects</p>
+                                    <h3>56</h3>
+                                </div>
+                                <div class="stat-icon blue">
+                                    <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="stat-card">
+                                <div class="stat-info">
+                                    <p>Team Ranking</p>
+                                    <h3>8 / 24</h3>
+                                </div>
+                                <div class="stat-icon green">
+                                    <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="stat-card">
+                                <div class="stat-info">
+                                    <p>Project Visits</p>
+                                    <h3>2,223</h3>
+                                </div>
+                                <div class="stat-icon yellow">
+                                    <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Main Grid -->
+                    <div class="main-grid">
+                        <!-- Left Column -->
+                        <div class="left-column">
+                            <!-- Ongoing Projects -->
+                            <div class="card">
+                                <div class="card-header">
+                                    <h2 class="card-title">Ongoing Projects</h2>
+                                    <button class="btn btn-ghost">
+                                        All Projects
+                                        <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+                                <div class="projects-grid">
+                                    <div class="project-card">
+                                        <div class="project-header">
+                                            <div class="project-icon bg-blue-500">A</div>
+                                            <div class="project-info">
+                                                <h4>Alipay</h4>
+                                                <p>That's something that, when you get there, you can't touch.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="project-card">
+                                        <div class="project-header">
+                                            <div class="project-icon bg-red-500">A</div>
+                                            <div class="project-info">
+                                                <h4>Angular</h4>
+                                                <p>I hope it's a good thing. Even if it's the best, something better will appear.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="project-card">
+                                        <div class="project-header">
+                                            <div class="project-icon bg-blue-600">A</div>
+                                            <div class="project-info">
+                                                <h4>Ant Design</h4>
+                                                <p>There are so many taverns in the town. She walked into mine.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="project-card">
+                                        <div class="project-header">
+                                            <div class="project-icon bg-gray-800">Pro</div>
+                                            <div class="project-info">
+                                                <h4>Ant Design Pro</h4>
+                                                <p>At that time, I might want to completely transform myself. What do I want to own?</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="project-card">
+                                        <div class="project-header">
+                                            <div class="project-icon bg-purple-600">B</div>
+                                            <div class="project-info">
+                                                <h4>Bootstrap</h4>
+                                                <p>Deep sea diving</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="project-card">
+                                        <div class="project-header">
+                                            <div class="project-icon bg-cyan-500">R</div>
+                                            <div class="project-info">
+                                                <h4>React</h4>
+                                                <p>Life is like a box of chocolates. The results are often unexpected.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Quick Start -->
+                            <div class="card">
+                                <h2 class="card-title mb-4">Quick Start / Shortcut Navigation</h2>
+                                <div class="quick-actions">
+                                    <button class="action-btn">Operation 1</button>
+                                    <button class="action-btn">Operation 2</button>
+                                    <button class="action-btn">Operation 3</button>
+                                    <button class="action-btn">Operation 4</button>
+                                    <button class="action-btn">Operation 5</button>
+                                    <button class="action-btn">Operation 6</button>
+                                    <button class="action-btn add">
+                                        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                                        </svg>
+                                        Add
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Activity -->
+                            <div class="card">
+                                <h2 class="card-title mb-4">Activity</h2>
+                                <div class="space-y-4">
+                                    <div class="activity-item">
+                                        <div class="activity-avatar bg-blue-500">林</div>
+                                        <div class="activity-content">
+                                            <p><span class="username">林东东</span> created new project <span class="action">六月迭代</span></p>
+                                            <p class="activity-time">less than a minute</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="activity-item">
+                                        <div class="activity-avatar bg-red-500">付</div>
+                                        <div class="activity-content">
+                                            <p><span class="username">付小小</span> created new project <span class="action">六月迭代</span></p>
+                                            <p class="activity-time">less than a minute</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="activity-item">
+                                        <div class="activity-avatar bg-blue-600">曲</div>
+                                        <div class="activity-content">
+                                            <p><span class="username">曲丽丽</span> created new project <span class="action">六月迭代</span></p>
+                                            <p class="activity-time">less than a minute</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="activity-item">
+                                        <div class="activity-avatar bg-gray-800">周</div>
+                                        <div class="activity-content">
+                                            <p><span class="username">周星星</span> updated status to <span class="action">published</span></p>
+                                            <p class="activity-time">less than a minute</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="activity-item">
+                                        <div class="activity-avatar bg-purple-600">朱</div>
+                                        <div class="activity-content">
+                                            <p><span class="username">朱偏右</span> published <span class="action">调研</span></p>
+                                            <p class="activity-time">less than a minute</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="activity-item">
+                                        <div class="activity-avatar bg-cyan-500">乐</div>
+                                        <div class="activity-content">
+                                            <p><span class="username">乐哥在</span> created new project <span class="action">品牌迭代</span></p>
+                                            <p class="activity-time">less than a minute</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right Column -->
+                        <div class="right-column">
+                            <!-- Contribution Index -->
+                            <div class="card">
+                                <h2 class="card-title mb-4">Contribution Index</h2>
+                                <div class="chart-container">
+                                    <canvas id="contributionChart"></canvas>
+                                </div>
+                                <div class="chart-legend">
+                                    <div class="legend-item">
+                                        <div class="legend-dot" style="background-color: #3b82f6;"></div>
+                                        <span>Individual (34)</span>
+                                    </div>
+                                    <div class="legend-item">
+                                        <div class="legend-dot" style="background-color: #f59e0b;"></div>
+                                        <span>Team (22)</span>
+                                    </div>
+                                    <div class="legend-item">
+                                        <div class="legend-dot" style="background-color: #10b981;"></div>
+                                        <span>Department (23)</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Teams -->
+                            <div class="card">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h2 class="card-title">Teams</h2>
+                                    <button class="notification-btn">
+                                        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+                                <div class="space-y-4">
+                                    <div class="team-item">
+                                        <div class="team-avatar bg-blue-500">科</div>
+                                        <span class="team-name">Science Moving-Bricks Group</span>
+                                    </div>
+
+                                    <div class="team-item">
+                                        <div class="team-avatar bg-red-500">设</div>
+                                        <span class="team-name">Design Super Team</span>
+                                    </div>
+
+                                    <div class="team-item">
+                                        <div class="team-avatar bg-blue-600">骗</div>
+                                        <span class="team-name">Fooled-You-To-Study-Computer Group</span>
+                                    </div>
+
+                                    <div class="team-item">
+                                        <div class="team-avatar bg-gray-800">程</div>
+                                        <span class="team-name">Programmer's Daily</span>
+                                    </div>
+
+                                    <div class="team-item">
+                                        <div class="team-avatar bg-purple-600">中</div>
+                                        <span class="team-name">Second-Girl Group</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        // Sidebar Toggle
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('collapsed');
+            
+            // On mobile, toggle open class instead
+            if (window.innerWidth <= 768) {
+                sidebar.classList.toggle('open');
+            }
+        }
+
+        // Mobile responsive behavior
+        function handleResize() {
+            const sidebar = document.getElementById('sidebar');
+            if (window.innerWidth <= 768) {
+                sidebar.classList.add('collapsed');
+                sidebar.classList.remove('open');
+            } else {
+                sidebar.classList.remove('open');
+            }
+        }
+
+        window.addEventListener('resize', handleResize);
+        handleResize(); // Initial call
+
+        // Radar Chart
+        function initChart() {
+            const ctx = document.getElementById('contributionChart').getContext('2d');
+            
+            new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: ['Reference', 'Popularity', 'Reputation', 'Production', 'Contribution'],
+                    datasets: [{
+                        label: 'Individual',
+                        data: [34, 28, 35, 30, 32],
+                        borderColor: '#3b82f6',
+                        backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                        borderWidth: 2,
+                        pointBackgroundColor: '#3b82f6',
+                        pointBorderColor: '#3b82f6',
+                        pointRadius: 4
+                    }, {
+                        label: 'Team',
+                        data: [22, 32, 28, 35, 25],
+                        borderColor: '#f59e0b',
+                        backgroundColor: 'rgba(245, 158, 11, 0.1)',
+                        borderWidth: 2,
+                        pointBackgroundColor: '#f59e0b',
+                        pointBorderColor: '#f59e0b',
+                        pointRadius: 4
+                    }, {
+                        label: 'Department',
+                        data: [23, 25, 30, 28, 32],
+                        borderColor: '#10b981',
+                        backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                        borderWidth: 2,
+                        pointBackgroundColor: '#10b981',
+                        pointBorderColor: '#10b981',
+                        pointRadius: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        r: {
+                            beginAtZero: true,
+                            max: 40,
+                            ticks: {
+                                stepSize: 10,
+                                font: {
+                                    size: 10
+                                }
+                            },
+                            pointLabels: {
+                                font: {
+                                    size: 11
+                                }
+                            },
+                            grid: {
+                                color: '#e5e7eb'
+                            },
+                            angleLines: {
+                                color: '#e5e7eb'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Initialize chart when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            initChart();
+        });
+
+        // Add click handlers for interactive elements
+        document.addEventListener('DOMContentLoaded', function() {
+            // Project card click handlers
+            const projectCards = document.querySelectorAll('.project-card');
+            projectCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    const projectName = this.querySelector('h4').textContent;
+                    alert(`Clicked on project: ${projectName}`);
+                });
+            });
+
+            // Quick action button handlers
+            const actionButtons = document.querySelectorAll('.action-btn');
+            actionButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const action = this.textContent.trim();
+                    if (action === 'Add') {
+                        alert('Add new operation');
+                    } else {
+                        alert(`Clicked on: ${action}`);
+                    }
+                });
+            });
+
+            // Team item click handlers
+            const teamItems = document.querySelectorAll('.team-item');
+            teamItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const teamName = this.querySelector('.team-name').textContent;
+                    alert(`Clicked on team: ${teamName}`);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
