@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Real-Time Trading Analytics Dashboard</title>
+    <meta name="description" content="Advanced real-time trading activity dashboard with live metrics, interactive visualizations, and business intelligence insights" />
+    <link rel="stylesheet" href="monitor.css">
+  </head>
+  <body>
+    <div class="dashboard">
+      <!-- Header -->
+      <header class="header">
+        <h1>Real-Time Trading Activity</h1>
+        <div class="header-right">
+          <div class="activity-chart-mini">
+            <div class="chart-info">
+              <h3>Activity forecast</h3>
+              <p class="value">1527 billion yuan</p>
+              <p class="subtitle">654 billion yuan</p>
+            </div>
+            <canvas id="header-chart" width="120" height="60"></canvas>
+          </div>
+          <div class="settings-icon">⚙️</div>
+        </div>
+      </header>
+
+      <!-- Top Metrics -->
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <p class="metric-title">Total transactions today</p>
+          <p class="metric-value" id="total-transactions">$124,543,233</p>
+        </div>
+        <div class="metric-card">
+          <p class="metric-title">Sales target completion rate</p>
+          <p class="metric-value" id="completion-rate">92%</p>
+        </div>
+        <div class="metric-card">
+          <p class="metric-title">Remaining time of activity</p>
+          <p class="metric-value" id="remaining-time">02:44:35.0</p>
+        </div>
+        <div class="metric-card">
+          <p class="metric-title">Total transactions per second</p>
+          <p class="metric-value" id="tps">$234</p>
+        </div>
+      </div>
+
+      <!-- Main Content -->
+      <div class="main-grid">
+        <!-- Left Column -->
+        <div class="left-column">
+          <!-- Trading Map -->
+          <div class="trading-map">
+            <div class="map-container">
+              <div class="grid-background"></div>
+              <div id="bubbles-container"></div>
+              <div class="map-overlay">
+                <p>Real-time Trading Activity Map</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Category Progress -->
+          <div class="category-progress">
+            <h3>Visitor Time</h3>
+            <div class="progress-bar">
+              <div class="progress-segment" style="width: 36%; background: hsl(210, 100%, 50%);"></div>
+              <div class="progress-segment" style="width: 24%; background: hsl(210, 80%, 60%);"></div>
+              <div class="progress-segment" style="width: 20%; background: hsl(210, 60%, 70%);"></div>
+              <div class="progress-segment" style="width: 20%; background: hsl(210, 40%, 80%);"></div>
+            </div>
+            <div class="progress-legend">
+              <div class="legend-item">
+                <div class="legend-color" style="background: hsl(210, 100%, 50%);"></div>
+                <span>Under $15 36%</span>
+              </div>
+              <div class="legend-item">
+                <div class="legend-color" style="background: hsl(210, 80%, 60%);"></div>
+                <span>$15-75 24%</span>
+              </div>
+              <div class="legend-item">
+                <div class="legend-color" style="background: hsl(210, 60%, 70%);"></div>
+                <span>$75-150 20%</span>
+              </div>
+              <div class="legend-item">
+                <div class="legend-color" style="background: hsl(210, 40%, 80%);"></div>
+                <span>Over $150 20%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column -->
+        <div class="right-column">
+          <!-- Efficiency Chart -->
+          <div class="chart-card">
+            <div class="chart-header">
+              <h3>Efficiency</h3>
+              <p class="chart-value" id="efficiency-value">44%</p>
+            </div>
+            <canvas id="efficiency-chart" width="200" height="100"></canvas>
+          </div>
+
+          <!-- Circular Efficiency -->
+          <div class="circular-chart-card">
+            <h3>Efficiency</h3>
+            <div class="circular-progress-container">
+              <div class="circular-progress" data-percentage="80">
+                <svg class="progress-ring" width="120" height="120">
+                  <circle class="progress-ring-bg" cx="60" cy="60" r="50"></circle>
+                  <circle class="progress-ring-fill" cx="60" cy="60" r="50"></circle>
+                </svg>
+                <div class="progress-text">
+                  <span class="percentage" id="circular-efficiency">80%</span>
+                  <span class="label">Ratio</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Section -->
+      <div class="bottom-grid">
+        <!-- Food Categories -->
+        <div class="card">
+          <h3>Proportion Per Category</h3>
+          <div class="food-categories">
+            <div class="circular-mini">
+              <div class="circular-progress-small" data-percentage="28">
+                <svg width="80" height="80">
+                  <circle class="bg-circle" cx="40" cy="40" r="30"></circle>
+                  <circle class="fill-circle" cx="40" cy="40" r="30" data-color="hsl(210, 100%, 50%)"></circle>
+                </svg>
+                <div class="mini-text">
+                  <span id="fastfood-percent">28%</span>
+                </div>
+              </div>
+              <p>Fast food</p>
+            </div>
+            <div class="circular-mini">
+              <div class="circular-progress-small" data-percentage="22">
+                <svg width="80" height="80">
+                  <circle class="bg-circle" cx="40" cy="40" r="30"></circle>
+                  <circle class="fill-circle" cx="40" cy="40" r="30" data-color="hsl(120, 60%, 50%)"></circle>
+                </svg>
+                <div class="mini-text">
+                  <span id="western-percent">22%</span>
+                </div>
+              </div>
+              <p>Western food</p>
+            </div>
+            <div class="circular-mini">
+              <div class="circular-progress-small" data-percentage="32">
+                <svg width="80" height="80">
+                  <circle class="bg-circle" cx="40" cy="40" r="30"></circle>
+                  <circle class="fill-circle" cx="40" cy="40" r="30" data-color="hsl(45, 100%, 50%)"></circle>
+                </svg>
+                <div class="mini-text">
+                  <span id="hotpot-percent">32%</span>
+                </div>
+              </div>
+              <p>Hot pot</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Word Cloud -->
+        <div class="card">
+          <h3>Popular Searches</h3>
+          <div class="word-cloud" id="word-cloud">
+            <span class="word" style="font-size: 2rem; left: 45%; top: 40%;">New York</span>
+            <span class="word" style="font-size: 1.2rem; left: 25%; top: 60%;">Los Angeles</span>
+            <span class="word" style="font-size: 1.5rem; left: 65%; top: 25%;">Chicago</span>
+            <span class="word" style="font-size: 1rem; left: 80%; top: 70%;">Houston</span>
+            <span class="word" style="font-size: 0.9rem; left: 15%; top: 25%;">Phoenix</span>
+            <span class="word" style="font-size: 1.2rem; left: 35%; top: 75%;">Philadelphia</span>
+            <span class="word" style="font-size: 0.9rem; left: 70%; top: 85%;">San Antonio</span>
+            <span class="word" style="font-size: 1rem; left: 20%; top: 45%;">San Diego</span>
+            <span class="word" style="font-size: 1.5rem; left: 75%; top: 50%;">Dallas</span>
+            <span class="word" style="font-size: 0.9rem; left: 55%; top: 70%;">San Jose</span>
+          </div>
+        </div>
+
+        <!-- Resource Surplus with Water Animation -->
+        <div class="card">
+          <h3>Resource Surplus</h3>
+          <div class="water-progress-container">
+            <div class="water-tank">
+              <div class="water-fill" id="water-fill">
+                <div class="water-wave"></div>
+                <div class="water-wave wave2"></div>
+              </div>
+              <div class="water-percentage">
+                <span id="resource-percent">34%</span>
+                <span class="water-label">Fund Surplus</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="monitor.js"></script>
+  </body>
+</html>

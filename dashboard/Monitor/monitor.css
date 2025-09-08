@@ -1,0 +1,521 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: hsl(0, 0%, 100%);
+  color: hsl(222, 84%, 5%);
+  line-height: 1.5;
+}
+
+.dashboard {
+  min-height: 100vh;
+  padding: 1.5rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Header */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.header h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: hsl(222, 84%, 5%);
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.activity-chart-mini {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: hsl(0, 0%, 100%);
+  padding: 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid hsl(214, 32%, 91%);
+  box-shadow: 0 1px 3px 0 hsl(0, 0%, 0%, 0.1);
+}
+
+.chart-info h3 {
+  font-size: 0.875rem;
+  color: hsl(215, 25%, 27%);
+  margin-bottom: 0.25rem;
+}
+
+.chart-info .value {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: hsl(222, 84%, 5%);
+}
+
+.chart-info .subtitle {
+  font-size: 0.875rem;
+  color: hsl(215, 25%, 27%);
+}
+
+.settings-icon {
+  font-size: 1.25rem;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+
+.settings-icon:hover {
+  opacity: 1;
+}
+
+/* Metrics Grid */
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.metric-card {
+  background: hsl(0, 0%, 100%);
+  padding: 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid hsl(214, 32%, 91%);
+  box-shadow: 0 1px 3px 0 hsl(0, 0%, 0%, 0.1);
+}
+
+.metric-title {
+  font-size: 0.875rem;
+  color: hsl(215, 25%, 27%);
+  margin-bottom: 0.25rem;
+  font-weight: 500;
+}
+
+.metric-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: hsl(222, 84%, 5%);
+}
+
+/* Main Grid */
+.main-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.left-column {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.right-column {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Trading Map */
+.trading-map {
+  background: hsl(0, 0%, 100%);
+  border-radius: 0.5rem;
+  border: 1px solid hsl(214, 32%, 91%);
+  box-shadow: 0 1px 3px 0 hsl(0, 0%, 0%, 0.1);
+  padding: 1rem;
+  height: 300px;
+  position: relative;
+}
+
+.map-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background: linear-gradient(135deg, hsl(210, 100%, 50%) 0%, hsl(210, 80%, 40%) 100%);
+  border-radius: 0.375rem;
+  overflow: hidden;
+}
+
+.grid-background {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(hsl(210, 100%, 60%) 1px, transparent 1px),
+    linear-gradient(90deg, hsl(210, 100%, 60%) 1px, transparent 1px);
+  background-size: 20px 20px;
+  opacity: 0.3;
+}
+
+#bubbles-container {
+  position: absolute;
+  inset: 0;
+}
+
+.bubble {
+  position: absolute;
+  background: hsl(0, 0%, 100%);
+  border-radius: 50%;
+  animation: bubble-pulse 2s ease-in-out infinite;
+}
+
+@keyframes bubble-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.7; }
+  50% { transform: scale(1.2); opacity: 0.9; }
+}
+
+.map-overlay {
+  position: absolute;
+  bottom: 1rem;
+  left: 1rem;
+  color: hsl(0, 0%, 100%);
+  font-weight: 600;
+}
+
+/* Category Progress */
+.category-progress {
+  background: hsl(0, 0%, 100%);
+  border-radius: 0.5rem;
+  border: 1px solid hsl(214, 32%, 91%);
+  box-shadow: 0 1px 3px 0 hsl(0, 0%, 0%, 0.1);
+  padding: 1rem;
+}
+
+.category-progress h3 {
+  font-size: 0.875rem;
+  color: hsl(215, 25%, 27%);
+  margin-bottom: 1rem;
+}
+
+.progress-bar {
+  display: flex;
+  height: 0.75rem;
+  background: hsl(210, 40%, 98%);
+  border-radius: 9999px;
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+
+.progress-segment {
+  height: 100%;
+  transition: width 0.5s ease;
+}
+
+.progress-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-size: 0.75rem;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.legend-color {
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 0.125rem;
+}
+
+/* Chart Cards */
+.chart-card, .circular-chart-card, .card {
+  background: hsl(0, 0%, 100%);
+  border-radius: 0.5rem;
+  border: 1px solid hsl(214, 32%, 91%);
+  box-shadow: 0 1px 3px 0 hsl(0, 0%, 0%, 0.1);
+  padding: 1rem;
+}
+
+.chart-header {
+  text-align: right;
+  margin-bottom: 1rem;
+}
+
+.chart-header h3 {
+  font-size: 0.875rem;
+  color: hsl(215, 25%, 27%);
+  margin-bottom: 0.25rem;
+}
+
+.chart-value {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: hsl(222, 84%, 5%);
+}
+
+/* Circular Progress */
+.circular-progress-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.circular-progress {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.progress-ring {
+  transform: rotate(-90deg);
+}
+
+.progress-ring-bg {
+  fill: none;
+  stroke: hsl(210, 40%, 98%);
+  stroke-width: 8;
+}
+
+.progress-ring-fill {
+  fill: none;
+  stroke: hsl(210, 100%, 50%);
+  stroke-width: 8;
+  stroke-linecap: round;
+  stroke-dasharray: 314.16;
+  stroke-dashoffset: 62.83;
+  transition: stroke-dashoffset 0.5s ease;
+}
+
+.progress-text {
+  position: absolute;
+  text-align: center;
+}
+
+.percentage {
+  display: block;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: hsl(222, 84%, 5%);
+}
+
+.label {
+  display: block;
+  font-size: 0.75rem;
+  color: hsl(215, 25%, 27%);
+}
+
+/* Bottom Grid */
+.bottom-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.card h3 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: hsl(222, 84%, 5%);
+  margin-bottom: 1.5rem;
+}
+
+/* Food Categories */
+.food-categories {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.circular-mini {
+  text-align: center;
+}
+
+.circular-progress-small {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 0.75rem;
+}
+
+.bg-circle {
+  fill: none;
+  stroke: hsl(210, 40%, 98%);
+  stroke-width: 6;
+}
+
+.fill-circle {
+  fill: none;
+  stroke-width: 6;
+  stroke-linecap: round;
+  stroke-dasharray: 188.5;
+  transform: rotate(-90deg);
+  transform-origin: 40px 40px;
+  transition: stroke-dashoffset 0.5s ease;
+}
+
+.mini-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: hsl(222, 84%, 5%);
+}
+
+.circular-mini p {
+  font-size: 0.875rem;
+  color: hsl(215, 25%, 27%);
+}
+
+/* Word Cloud */
+.word-cloud {
+  position: relative;
+  width: 100%;
+  height: 12rem;
+  background: hsl(210, 40%, 98%);
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.word {
+  position: absolute;
+  font-weight: 500;
+  color: hsl(210, 100%, 50%);
+  cursor: pointer;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.2s;
+}
+
+.word:hover {
+  opacity: 0.8;
+}
+
+.word:nth-child(2n) {
+  color: hsl(210, 80%, 60%);
+}
+
+.word:nth-child(3n) {
+  color: hsl(215, 25%, 27%);
+}
+
+/* Water Progress Animation */
+.water-progress-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.water-tank {
+  width: 120px;
+  height: 120px;
+  border: 3px solid hsl(210, 40%, 98%);
+  border-radius: 50%;
+  position: relative;
+  overflow: hidden;
+  background: hsl(0, 0%, 100%);
+}
+
+.water-fill {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 34%;
+  background: linear-gradient(180deg, hsl(210, 100%, 60%) 0%, hsl(210, 100%, 50%) 100%);
+  animation: water-rise 2s ease-out;
+  transition: height 0.8s ease;
+}
+
+@keyframes water-rise {
+  from { height: 0%; }
+  to { height: 34%; }
+}
+
+.water-wave {
+  position: absolute;
+  top: -10px;
+  left: -50%;
+  width: 200%;
+  height: 20px;
+  background: linear-gradient(90deg, transparent, hsl(210, 100%, 70%), transparent);
+  border-radius: 50%;
+  animation: water-wave 3s ease-in-out infinite;
+}
+
+.wave2 {
+  animation-delay: 1.5s;
+  opacity: 0.5;
+}
+
+@keyframes water-wave {
+  0%, 100% { transform: translateX(-25%) rotate(0deg); }
+  50% { transform: translateX(25%) rotate(180deg); }
+}
+
+.water-percentage {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  z-index: 10;
+}
+
+.water-percentage span {
+  display: block;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: hsl(222, 84%, 5%);
+}
+
+.water-label {
+  font-size: 0.75rem !important;
+  color: hsl(215, 25%, 27%) !important;
+}
+
+/* Animation for counting numbers */
+@keyframes countUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.counting {
+  animation: countUp 0.6s ease-out;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .main-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .food-categories {
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard {
+    padding: 1rem;
+  }
+  
+  .header {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+  
+  .header-right {
+    flex-direction: column;
+  }
+  
+  .metrics-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .bottom-grid {
+    grid-template-columns: 1fr;
+  }
+}
