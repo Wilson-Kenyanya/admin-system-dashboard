@@ -1,4 +1,4 @@
-// Dashboard JavaScript
+// Dashboard JavaScript for Admin Panel
 class AdminDashboard {
     constructor() {
         this.currentTab = 'sales';

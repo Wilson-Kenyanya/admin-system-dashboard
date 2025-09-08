@@ -841,7 +841,7 @@ body {
     .stat-card {
         padding: 16px;
         flex-direction: column;
-        text-align: center;
+        text-align: center;      
     }
     
     .stat-icon {
