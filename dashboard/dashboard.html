@@ -3,347 +3,470 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard - Analytics & Sales Management</title>
-    <meta name="description" content="Comprehensive admin dashboard for sales analytics, conversion tracking, and business intelligence">
-    <link rel="stylesheet" href="customize.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>NG-ALAIN Pro - Admin Dashboard</title>
+    <link rel="stylesheet" href="dashboard.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
 <body>
-    <div class="dashboard-container">
-        <div class="dashboard-wrapper">
-            <!-- Header -->
-            <div class="header-section">
-                <h1 class="dashboard-title">Analytics Dashboard</h1>
-                
-                <!-- Top Controls -->
-                <div class="controls-section">
-                    <div class="tabs-container">
-                        <div class="tabs-list">
-                            <button class="tab-button active" data-tab="sales">Sales</button>
-                            <button class="tab-button" data-tab="visits">Visits</button>
-                        </div>
-                    </div>
+    <!-- Header -->
+    <header class="main-header">
+        <div class="header-left">
+            <div class="logo">
+                <i class="fas fa-shield-alt"></i>
+                <span>NG-ALAIN Pro</span>
+            </div>
+            <button class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        
+        <div class="header-center">
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Search...">
+            </div>
+        </div>
+        
+        <div class="header-right">
+            <div class="header-icons">
+                <button class="icon-btn">
+                    <i class="fas fa-search"></i>
+                </button>
+                <button class="icon-btn">
+                    <i class="fas fa-question-circle"></i>
+                </button>
+                <button class="icon-btn">
+                    <i class="fas fa-calendar"></i>
+                </button>
+                <button class="icon-btn notification-btn">
+                    <i class="fas fa-bell"></i>
+                    <span class="notification-badge">5</span>
+                </button>
+                <span class="rtl-text">RTL</span>
+                <div class="admin-profile">
+                    <i class="fas fa-user-circle"></i>
+                    <span>Admin</span>
+                    <i class="fas fa-cog"></i>
+                </div>
+            </div>
+        </div>
+    </header>
 
-                    <div class="time-controls">
-                        <div class="time-periods">
-                            <button class="time-button active" data-period="day">All Day</button>
-                            <button class="time-button" data-period="week">All Week</button>
-                            <button class="time-button" data-period="month">All Month</button>
-                            <button class="time-button" data-period="year">All Year</button>
+    <!-- Navigation Tabs -->
+    <nav class="nav-tabs">
+        <div class="tab-container">
+            <div class="nav-tab active" data-tab="dashboard">
+                <i class="fas fa-tachometer-alt"></i>
+                <span>Dashboard</span>
+                <div class="dropdown-menu" id="dashboardDropdown">
+                    <a href="#" class="dropdown-item" data-page="analysis">
+                        <i class="fas fa-chart-bar"></i>
+                        Analysis
+                    </a>
+                    <a href="#" class="dropdown-item" data-page="monitor">
+                        <i class="fas fa-desktop"></i>
+                        Monitor
+                    </a>
+                    <a href="#" class="dropdown-item" data-page="workplace">
+                        <i class="fas fa-building"></i>
+                        Workplace
+                    </a>
+                    <a href="#" class="dropdown-item" data-page="customize">
+                        <i class="fas fa-cog"></i>
+                        Customize
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="tab-controls">
+            <button class="tab-control-btn">
+                <i class="fas fa-calendar"></i>
+                All day
+            </button>
+            <button class="tab-control-btn">
+                <i class="fas fa-calendar-week"></i>
+                All Week
+            </button>
+            <button class="tab-control-btn">
+                <i class="fas fa-calendar-alt"></i>
+                All Month
+            </button>
+            <button class="tab-control-btn active">
+                <i class="fas fa-calendar"></i>
+                All Year
+            </button>
+            <div class="date-range">
+                <input type="date" class="date-input" placeholder="Start date">
+                <span>-</span>
+                <input type="date" class="date-input" placeholder="End date">
+                <button class="date-btn">
+                    <i class="fas fa-calendar"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Dashboard Home -->
+        <div id="dashboard-home" class="page-content active">
+            <div class="page-header">
+                <h1>Dashboard Overview</h1>
+                <p>Comprehensive analytics and system monitoring</p>
+            </div>
+            
+            <!-- Stats Cards -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon analysis">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>Total Sales</h3>
+                        <div class="stat-value">¥ 126,560</div>
+                        <div class="stat-change positive">
+                            <i class="fas fa-arrow-up"></i>
+                            <span>+12% Week Ratio</span>
                         </div>
-                        
-                        <div class="date-controls">
-                            <button class="date-button">
-                                <span class="calendar-icon">📅</span>
-                                <span>Start date</span>
-                            </button>
-                            <button class="date-button">
-                                <span class="calendar-icon">📅</span>
-                                <span>End date</span>
-                            </button>
-                            <button class="date-button">
-                                <span class="calendar-icon">🗓️</span>
-                            </button>
+                        <div class="stat-detail">Day Sales ¥ 12,423</div>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon monitor">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>Visits</h3>
+                        <div class="stat-value">8,848</div>
+                        <div class="stat-change negative">
+                            <i class="fas fa-arrow-down"></i>
+                            <span>-11% Day Visits</span>
                         </div>
+                        <div class="stat-detail">1,234 unique visitors</div>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon workplace">
+                        <i class="fas fa-credit-card"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>Payments</h3>
+                        <div class="stat-value">6,560</div>
+                        <div class="stat-change positive">
+                            <i class="fas fa-arrow-up"></i>
+                            <span>+60% Conversion Rate</span>
+                        </div>
+                        <div class="stat-detail">60% success rate</div>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon customize">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>Operational Effect</h3>
+                        <div class="stat-value">78%</div>
+                        <div class="stat-change positive">
+                            <i class="fas fa-arrow-up"></i>
+                            <span>+12% Week Ratio</span>
+                        </div>
+                        <div class="stat-detail">Day Ratio 11%</div>
                     </div>
                 </div>
             </div>
-
-            <!-- Main Content -->
-            <div class="content-section">
-                <!-- Sales Tab Content -->
-                <div class="tab-content active" id="sales-content">
-                    <div class="main-chart-section">
-                        <!-- Sales Chart -->
-                        <div class="chart-card main-chart">
-                            <div class="card-header">
-                                <h3 class="card-title">Stores Sales Trend</h3>
-                            </div>
-                            <div class="card-content">
-                                <canvas id="salesChart" width="800" height="400"></canvas>
-                            </div>
-                        </div>
-                        
-                        <!-- Sales Ranking -->
-                        <div class="chart-card ranking-card">
-                            <div class="card-header">
-                                <h3 class="card-title">Sales Ranking</h3>
-                            </div>
-                            <div class="card-content">
-                                <div class="ranking-list">
-                                    <div class="ranking-item">
-                                        <div class="ranking-info">
-                                            <div class="rank-badge rank-1">1</div>
-                                            <span class="store-name">Guangzhou No.0 shop</span>
-                                        </div>
-                                        <span class="store-value">323,234</span>
-                                    </div>
-                                    <div class="ranking-item">
-                                        <div class="ranking-info">
-                                            <div class="rank-badge rank-2">2</div>
-                                            <span class="store-name">Guangzhou No.1 shop</span>
-                                        </div>
-                                        <span class="store-value">323,234</span>
-                                    </div>
-                                    <div class="ranking-item">
-                                        <div class="ranking-info">
-                                            <div class="rank-badge rank-3">3</div>
-                                            <span class="store-name">Guangzhou No.2 shop</span>
-                                        </div>
-                                        <span class="store-value">323,234</span>
-                                    </div>
-                                    <div class="ranking-item">
-                                        <div class="ranking-info">
-                                            <div class="rank-badge">4</div>
-                                            <span class="store-name">Guangzhou No.3 shop</span>
-                                        </div>
-                                        <span class="store-value">323,234</span>
-                                    </div>
-                                    <div class="ranking-item">
-                                        <div class="ranking-info">
-                                            <div class="rank-badge">5</div>
-                                            <span class="store-name">Guangzhou No.4 shop</span>
-                                        </div>
-                                        <span class="store-value">323,234</span>
-                                    </div>
-                                    <div class="ranking-item">
-                                        <div class="ranking-info">
-                                            <div class="rank-badge">6</div>
-                                            <span class="store-name">Guangzhou No.5 shop</span>
-                                        </div>
-                                        <span class="store-value">323,234</span>
-                                    </div>
-                                    <div class="ranking-item">
-                                        <div class="ranking-info">
-                                            <div class="rank-badge">7</div>
-                                            <span class="store-name">Guangzhou No.6 shop</span>
-                                        </div>
-                                        <span class="store-value">323,234</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+            
+            <!-- Dashboard Modules -->
+            <div class="dashboard-modules">
+                <div class="module-card" data-module="analysis">
+                    <div class="module-header">
+                        <i class="fas fa-chart-bar"></i>
+                        <h3>Analysis Module</h3>
                     </div>
-                    
-                    <!-- Conversion Rates -->
-                    <div class="chart-card">
-                        <div class="card-header">
-                            <h3 class="card-title">Conversion Rates by Store</h3>
-                        </div>
-                        <div class="card-content">
-                            <div class="conversion-grid">
-                                <div class="conversion-item">
-                                    <div class="circular-progress" data-percentage="70">
-                                        <svg class="progress-ring" width="96" height="96">
-                                            <circle class="progress-ring-bg" cx="48" cy="48" r="40"></circle>
-                                            <circle class="progress-ring-fill" cx="48" cy="48" r="40"></circle>
-                                        </svg>
-                                        <div class="progress-text">
-                                            <div class="store-id">Store 4</div>
-                                            <div class="percentage">70%</div>
-                                        </div>
-                                    </div>
-                                    <p class="conversion-label">Conversion Rate</p>
-                                </div>
-                                <div class="conversion-item">
-                                    <div class="circular-progress" data-percentage="90">
-                                        <svg class="progress-ring" width="96" height="96">
-                                            <circle class="progress-ring-bg" cx="48" cy="48" r="40"></circle>
-                                            <circle class="progress-ring-fill" cx="48" cy="48" r="40"></circle>
-                                        </svg>
-                                        <div class="progress-text">
-                                            <div class="store-id">Store 5</div>
-                                            <div class="percentage">90%</div>
-                                        </div>
-                                    </div>
-                                    <p class="conversion-label">Conversion Rate</p>
-                                </div>
-                                <div class="conversion-item">
-                                    <div class="circular-progress" data-percentage="10">
-                                        <svg class="progress-ring" width="96" height="96">
-                                            <circle class="progress-ring-bg" cx="48" cy="48" r="40"></circle>
-                                            <circle class="progress-ring-fill" cx="48" cy="48" r="40"></circle>
-                                        </svg>
-                                        <div class="progress-text">
-                                            <div class="store-id">Store 6</div>
-                                            <div class="percentage">10%</div>
-                                        </div>
-                                    </div>
-                                    <p class="conversion-label">Conversion Rate</p>
-                                </div>
-                                <div class="conversion-item">
-                                    <div class="circular-progress" data-percentage="90">
-                                        <svg class="progress-ring" width="96" height="96">
-                                            <circle class="progress-ring-bg" cx="48" cy="48" r="40"></circle>
-                                            <circle class="progress-ring-fill" cx="48" cy="48" r="40"></circle>
-                                        </svg>
-                                        <div class="progress-text">
-                                            <div class="store-id">Store 7</div>
-                                            <div class="percentage">90%</div>
-                                        </div>
-                                    </div>
-                                    <p class="conversion-label">Conversion Rate</p>
-                                </div>
-                                <div class="conversion-item">
-                                    <div class="circular-progress" data-percentage="30">
-                                        <svg class="progress-ring" width="96" height="96">
-                                            <circle class="progress-ring-bg" cx="48" cy="48" r="40"></circle>
-                                            <circle class="progress-ring-fill" cx="48" cy="48" r="40"></circle>
-                                        </svg>
-                                        <div class="progress-text">
-                                            <div class="store-id">Store 8</div>
-                                            <div class="percentage">30%</div>
-                                        </div>
-                                    </div>
-                                    <p class="conversion-label">Conversion Rate</p>
-                                </div>
-                                <div class="conversion-item">
-                                    <div class="circular-progress" data-percentage="80">
-                                        <svg class="progress-ring" width="96" height="96">
-                                            <circle class="progress-ring-bg" cx="48" cy="48" r="40"></circle>
-                                            <circle class="progress-ring-fill" cx="48" cy="48" r="40"></circle>
-                                        </svg>
-                                        <div class="progress-text">
-                                            <div class="store-id">Store 9</div>
-                                            <div class="percentage">80%</div>
-                                        </div>
-                                    </div>
-                                    <p class="conversion-label">Conversion Rate</p>
-                                </div>
-                            </div>
-                        </div>
+                    <p>Comprehensive data analytics and reporting tools</p>
+                    <div class="module-features">
+                        <span class="feature-tag">Sales Analytics</span>
+                        <span class="feature-tag">Performance Metrics</span>
+                        <span class="feature-tag">Revenue Reports</span>
                     </div>
-                    
-                    <!-- Traffic & Payments Chart -->
-                    <div class="chart-card">
-                        <div class="card-header">
-                            <h3 class="card-title">Traffic & Payments Analysis</h3>
-                            <div class="legend">
-                                <div class="legend-item">
-                                    <div class="legend-color traffic-color"></div>
-                                    <span>Traffic</span>
-                                </div>
-                                <div class="legend-item">
-                                    <div class="legend-color payments-color"></div>
-                                    <span>Payments</span>
-                                </div>
-                            </div>
+                    <button class="module-btn" onclick="showPage('analysis')">
+                        Open Analysis <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+                
+                <div class="module-card" data-module="monitor">
+                    <div class="module-header">
+                        <i class="fas fa-desktop"></i>
+                        <h3>Monitor Module</h3>
+                    </div>
+                    <p>Real-time system monitoring and performance tracking</p>
+                    <div class="module-features">
+                        <span class="feature-tag">System Status</span>
+                        <span class="feature-tag">Performance Monitor</span>
+                        <span class="feature-tag">Alert Management</span>
+                    </div>
+                    <button class="module-btn" onclick="showPage('monitor')">
+                        Open Monitor <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+                
+                <div class="module-card" data-module="workplace">
+                    <div class="module-header">
+                        <i class="fas fa-building"></i>
+                        <h3>Workplace Module</h3>
+                    </div>
+                    <p>Team management and project collaboration tools</p>
+                    <div class="module-features">
+                        <span class="feature-tag">Team Management</span>
+                        <span class="feature-tag">Project Overview</span>
+                        <span class="feature-tag">Workspace Settings</span>
+                    </div>
+                    <button class="module-btn" onclick="showPage('workplace')">
+                        Open Workplace <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+                
+                <div class="module-card" data-module="customize">
+                    <div class="module-header">
+                        <i class="fas fa-cog"></i>
+                        <h3>Customize Module</h3>
+                    </div>
+                    <p>Personalize your dashboard and system preferences</p>
+                    <div class="module-features">
+                        <span class="feature-tag">UI Preferences</span>
+                        <span class="feature-tag">User Settings</span>
+                        <span class="feature-tag">System Configuration</span>
+                    </div>
+                    <button class="module-btn" onclick="showPage('customize')">
+                        Open Customize <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Analysis Page -->
+        <div id="analysis-page" class="page-content">
+            <div class="page-header">
+                <h1>Analysis</h1>
+                <p>Comprehensive analytics and reporting</p>
+            </div>
+            <div class="content-grid">
+                <div class="chart-container">
+                    <h3>Sales Analytics</h3>
+                    <canvas id="salesChart" width="400" height="200"></canvas>
+                </div>
+                <div class="analytics-stats">
+                    <div class="analytics-item">
+                        <h4>System Uptime</h4>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 98.5%"></div>
                         </div>
-                        <div class="card-content">
-                            <canvas id="trafficChart" width="800" height="320"></canvas>
+                        <span>98.5%</span>
+                    </div>
+                    <div class="analytics-item">
+                        <h4>Response Time</h4>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 95%"></div>
+                        </div>
+                        <span>1.2s avg</span>
+                    </div>
+                    <div class="analytics-item">
+                        <h4>Success Rate</h4>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 99.9%"></div>
+                        </div>
+                        <span>99.9%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Monitor Page -->
+        <div id="monitor-page" class="page-content">
+            <div class="page-header">
+                <h1>Monitor</h1>
+                <p>System monitoring and performance metrics</p>
+            </div>
+            <div class="monitor-grid">
+                <div class="monitor-card">
+                    <h4>CPU Usage</h4>
+                    <div class="metric-value">65%</div>
+                    <div class="metric-chart">
+                        <canvas id="cpuChart" width="100" height="50"></canvas>
+                    </div>
+                </div>
+                <div class="monitor-card">
+                    <h4>Memory</h4>
+                    <div class="metric-value">82%</div>
+                    <div class="metric-chart">
+                        <canvas id="memoryChart" width="100" height="50"></canvas>
+                    </div>
+                </div>
+                <div class="monitor-card">
+                    <h4>Disk Usage</h4>
+                    <div class="metric-value">32%</div>
+                    <div class="metric-chart">
+                        <canvas id="diskChart" width="100" height="50"></canvas>
+                    </div>
+                </div>
+                <div class="monitor-card">
+                    <h4>Network</h4>
+                    <div class="metric-value">92%</div>
+                    <div class="metric-chart">
+                        <canvas id="networkChart" width="100" height="50"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Workplace Page -->
+        <div id="workplace-page" class="page-content">
+            <div class="page-header">
+                <h1>Workplace</h1>
+                <p>Team management and project collaboration</p>
+            </div>
+            <div class="workplace-content">
+                <div class="projects-section">
+                    <h3>Active Projects</h3>
+                    <div class="project-list">
+                        <div class="project-item">
+                            <h4>Website Redesign</h4>
+                            <div class="project-progress">
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 75%"></div>
+                                </div>
+                                <span>75%</span>
+                            </div>
+                            <div class="project-team">5 members</div>
+                        </div>
+                        <div class="project-item">
+                            <h4>Mobile App</h4>
+                            <div class="project-progress">
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 100%"></div>
+                                </div>
+                                <span>100%</span>
+                            </div>
+                            <div class="project-team">8 members</div>
+                        </div>
+                        <div class="project-item">
+                            <h4>API Integration</h4>
+                            <div class="project-progress">
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 30%"></div>
+                                </div>
+                                <span>30%</span>
+                            </div>
+                            <div class="project-team">3 members</div>
                         </div>
                     </div>
                 </div>
-
-                <!-- Visits Tab Content -->
-                <div class="tab-content" id="visits-content">
-                    <div class="main-chart-section">
-                        <!-- Visits Chart -->
-                        <div class="chart-card main-chart">
-                            <div class="card-header">
-                                <h3 class="card-title">Stores Visits Trend</h3>
-                            </div>
-                            <div class="card-content">
-                                <canvas id="visitsChart" width="800" height="400"></canvas>
-                            </div>
+                <div class="team-section">
+                    <h3>Team Members</h3>
+                    <div class="team-grid">
+                        <div class="team-member">
+                            <div class="member-avatar">JD</div>
+                            <h4>John Doe</h4>
+                            <p>Frontend Developer</p>
+                            <span class="status online">Online</span>
                         </div>
-                        
-                        <!-- Visits Ranking -->
-                        <div class="chart-card ranking-card">
-                            <div class="card-header">
-                                <h3 class="card-title">Visits Ranking</h3>
-                            </div>
-                            <div class="card-content">
-                                <div class="ranking-list">
-                                    <div class="ranking-item">
-                                        <div class="ranking-info">
-                                            <div class="rank-badge rank-1">1</div>
-                                            <span class="store-name">Guangzhou No.0 shop</span>
-                                        </div>
-                                        <span class="store-value">15,234</span>
-                                    </div>
-                                    <div class="ranking-item">
-                                        <div class="ranking-info">
-                                            <div class="rank-badge rank-2">2</div>
-                                            <span class="store-name">Guangzhou No.1 shop</span>
-                                        </div>
-                                        <span class="store-value">14,123</span>
-                                    </div>
-                                    <div class="ranking-item">
-                                        <div class="ranking-info">
-                                            <div class="rank-badge rank-3">3</div>
-                                            <span class="store-name">Guangzhou No.2 shop</span>
-                                        </div>
-                                        <span class="store-value">13,456</span>
-                                    </div>
-                                    <div class="ranking-item">
-                                        <div class="ranking-info">
-                                            <div class="rank-badge">4</div>
-                                            <span class="store-name">Guangzhou No.3 shop</span>
-                                        </div>
-                                        <span class="store-value">12,789</span>
-                                    </div>
-                                    <div class="ranking-item">
-                                        <div class="ranking-info">
-                                            <div class="rank-badge">5</div>
-                                            <span class="store-name">Guangzhou No.4 shop</span>
-                                        </div>
-                                        <span class="store-value">11,234</span>
-                                    </div>
-                                    <div class="ranking-item">
-                                        <div class="ranking-info">
-                                            <div class="rank-badge">6</div>
-                                            <span class="store-name">Guangzhou No.5 shop</span>
-                                        </div>
-                                        <span class="store-value">10,567</span>
-                                    </div>
-                                    <div class="ranking-item">
-                                        <div class="ranking-info">
-                                            <div class="rank-badge">7</div>
-                                            <span class="store-name">Guangzhou No.6 shop</span>
-                                        </div>
-                                        <span class="store-value">9,876</span>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="team-member">
+                            <div class="member-avatar">JS</div>
+                            <h4>Jane Smith</h4>
+                            <p>Backend Developer</p>
+                            <span class="status offline">Offline</span>
                         </div>
-                    </div>
-                    
-                    <!-- Same conversion rates and traffic charts as sales tab -->
-                    <div class="chart-card">
-                        <div class="card-header">
-                            <h3 class="card-title">Conversion Rates by Store</h3>
-                        </div>
-                        <div class="card-content">
-                            <div class="conversion-grid">
-                                <!-- Same conversion rate circles as above -->
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="chart-card">
-                        <div class="card-header">
-                            <h3 class="card-title">Traffic & Payments Analysis</h3>
-                            <div class="legend">
-                                <div class="legend-item">
-                                    <div class="legend-color traffic-color"></div>
-                                    <span>Traffic</span>
-                                </div>
-                                <div class="legend-item">
-                                    <div class="legend-color payments-color"></div>
-                                    <span>Payments</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-content">
-                            <canvas id="trafficChart2" width="800" height="320"></canvas>
+                        <div class="team-member">
+                            <div class="member-avatar">MJ</div>
+                            <h4>Mike Johnson</h4>
+                            <p>Designer</p>
+                            <span class="status online">Online</span>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+        
+        <!-- Customize Page -->
+        <div id="customize-page" class="page-content">
+            <div class="page-header">
+                <h1>Customize</h1>
+                <p>Personalize your dashboard experience</p>
+            </div>
+            <div class="customize-content">
+                <div class="settings-group">
+                    <h3>UI Preferences</h3>
+                    <div class="setting-item">
+                        <label>Theme</label>
+                        <select class="setting-select">
+                            <option value="blue">Blue (Default)</option>
+                            <option value="dark">Dark</option>
+                            <option value="light">Light</option>
+                        </select>
+                    </div>
+                    <div class="setting-item">
+                        <label>Language</label>
+                        <select class="setting-select">
+                            <option value="en">English</option>
+                            <option value="zh">中文</option>
+                            <option value="ja">日本語</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="settings-group">
+                    <h3>Notification Settings</h3>
+                    <div class="setting-item">
+                        <label>
+                            <input type="checkbox" checked>
+                            Email Notifications
+                        </label>
+                    </div>
+                    <div class="setting-item">
+                        <label>
+                            <input type="checkbox">
+                            Push Notifications
+                        </label>
+                    </div>
+                    <div class="setting-item">
+                        <label>
+                            <input type="checkbox" checked>
+                            System Alerts
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="settings-group">
+                    <h3>Regional Settings</h3>
+                    <div class="setting-item">
+                        <label>Timezone</label>
+                        <select class="setting-select">
+                            <option value="utc+8">UTC+8 (Beijing)</option>
+                            <option value="utc+9">UTC+9 (Tokyo)</option>
+                            <option value="utc-5">UTC-5 (New York)</option>
+                        </select>
+                    </div>
+                    <div class="setting-item">
+                        <label>Currency</label>
+                        <select class="setting-select">
+                            <option value="cny">CNY (¥)</option>
+                            <option value="usd">USD ($)</option>
+                            <option value="eur">EUR (€)</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="settings-actions">
+                    <button class="btn-secondary">Reset to Default</button>
+                    <button class="btn-primary">Save Changes</button>
+                </div>
+            </div>
+        </div>
+    </main>
 
-    <script src="customize.js"></script>
+    <script src="dashboard.js"></script>
 </body>
 </html>
